@@ -7,6 +7,7 @@ import {useToastStore} from "@/stores/toast.js";
 import {onMounted, ref, watch} from "vue";
 import FeedItem from "@/components/FeedItem.vue";
 import {useRoute} from 'vue-router'
+import router from "@/router/index.js";
 
 onMounted(() => {
     getFeed()
@@ -69,6 +70,16 @@ function sendFriendshipRequest() {
         })
 }
 
+function sendDirectMessage() {
+    axios
+      .get(`/api/chat/${router.currentRoute.value.params.id}/get-or-create/`)
+      .then(response => {
+          router.push('/chat')
+      })
+      .catch(error => {
+      })
+}
+
 function logout() {
     userStore.removeToken();
     router.push({
@@ -95,6 +106,20 @@ function logout() {
                             v-if="userStore.user.id !== user.id"
                     > Send friendship request
                     </button>
+                  <button
+                        class="inline-block mt-4 py-4 px-3 bg-purple-600 text-xs text-white rounded-lg"
+                        @click="sendDirectMessage"
+                        v-if="userStore.user.id !== user.id"
+                    >
+                        Send direct message
+                    </button>
+                    <RouterLink
+                        class="inline-block mr-2 py-4 px-3 bg-purple-600 text-xs text-white rounded-lg"
+                        to="/profile/edit"
+                        v-if="userStore.user.id === user.id"
+                    >
+                        Edit profile
+                    </RouterLink>
                     <button class="inline-block py-4 px-3 bg-red-600 text-xs text-white rounded-lg"
                             @click="logout"
                             v-if="userStore.user.id === user.id"

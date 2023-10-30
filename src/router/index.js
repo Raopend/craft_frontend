@@ -49,6 +49,31 @@ const router = createRouter({
             name: 'post-view',
             component: () => import('@/views/PostView.vue')
         },
+        {
+            path: '/chat',
+            name: 'chat',
+            component: () => import('@/views/ChatView.vue')
+        },
+        {
+            path: '/notifications',
+            name: 'notifications',
+            component: () => import('@/views/NotificationsView.vue')
+        },
+        {
+          path: '/profile/edit',
+          name: 'editprofile',
+          component: () => import('@/views/EditProfileView.vue')
+        },
+        {
+          path: '/profile/edit/password',
+          name: 'editpassword',
+          component: () => import('@/views/EditPasswordView.vue')
+        },
+        {
+          path: '/trends/:id',
+          name: 'trendview',
+          component: () => import('@/views/TrendView.vue')
+        },
     ]
 })
 
